@@ -1,0 +1,5 @@
+transformers 
+gradio
+nltk
+torch
+gdown
