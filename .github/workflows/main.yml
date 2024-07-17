@@ -1,0 +1,37 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Log in to Docker Hub
+        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+        
+      - name: Build and push Docker image
+        run: |
+          cd Application
+          docker build . --file Dockerfile --tag ${{ secrets.REGISTRY_NAME }}/text_summarization:latest
+          docker push ${{ secrets.REGISTRY_NAME }}/text_summarization:latest
+
+      - name: 'Login via Azure CLI'
+        uses: azure/login@v1 
+        with:
+          creds: ${{ secrets.AZURE_RBAC_CREDENTIALS }}
+
+      - name: Install Azure CLI
+        run: |
+          curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
+
+      # Automatically pulls the latest image with the image name and tagname from Docker Hub.
+      - name: Restart Azure Container Instance
+        run: |
+          az container restart --name ${{ secrets.CONTAINER_GROUP_NAME }} --resource-group ${{ secrets.RESOURCE_GROUP }}
