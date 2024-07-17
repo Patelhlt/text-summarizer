@@ -1,4 +1,5 @@
 # text-summarizer
+[![CI/CD Pipeline](https://github.com/Patelhlt/text-summarizer/actions/workflows/main.yml/badge.svg)](https://github.com/Patelhlt/text-summarizer/actions/workflows/main.yml)
 
 The CNN/Daily Mail dataset is a popular large-scale dataset used primarily for tasks in natural language processing (NLP), particularly for training models on abstractive text summarization and question answering. This dataset consists of articles and their corresponding summaries from CNN and Daily Mail news websites.
 overview of CNN/Daily Mail Dataset
