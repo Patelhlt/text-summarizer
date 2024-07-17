@@ -1,7 +1,7 @@
 import gdown
 
 # Google Drive file ID and output path
-file_id = 'hGuYthH2MKLZdtWxBfjpQqWNuoBGRIar'
+file_id = '1hGuYthH2MKLZdtWxBfjpQqWNuoBGRIar'
 output = 'fine-tuned-abstractive/model.safetensors'
 
 # Download the file
